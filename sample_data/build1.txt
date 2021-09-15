@@ -1,0 +1,4 @@
+0:01 start
+0:10 lair
+0:20 evolution_chamber evolution_chamber hatchery
+0:30 lair
