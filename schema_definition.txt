@@ -1,0 +1,16 @@
+The schema for creating pairings between Timings and Audio Queues is as follows
+    min:sec audio_queue (audio_queue2 audio_queue3 ...)
+Where
+    min is an integer beween 0-9
+    ":" separates min and sec
+    sec is an integer between 0-59 (always represented in 2 digits)
+    audio_queue is the string of the audio queue file with no extension and in snake_case
+    Multiple audio_queues can be defined per line, but only one timing is allowed
+Examples
+    2:00 barracks
+    2:30 factory
+    2:45 command_center planetary_fortress starport
+Example explained
+    Two minutes after pressing the start button, the audio queue "barracks.mp3" will play
+    30 seconds after that, "factory.mp3" will play
+    15 seconds after that, "command_center.mp3", "planetary_fortress.mp3" and "starport.mp3" will play in sequence
