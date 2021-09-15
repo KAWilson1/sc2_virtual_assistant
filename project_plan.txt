@@ -20,13 +20,14 @@ Graphical Interface must include
     A display of last command given
     Save button
     Open button
+    Text field for entering in timings with associated audio queues
 
 # Project Plan
-Record audio clips
-Define schema for associating a timing with an audio queue
-Create function to play audio queues from schema
-Create function to read schema from file
-Create function to read schema from graphical interface (current session)
-Create function to store the current session's timings and associated audio queues
-Create stopwatch function to base audio queue timings from
-Create graphical interface
+[ ] Record audio clips
+[x] Define schema for associating a timing with an audio queue
+[ ] Create function to play audio queues from schema
+[ ] Create function to read schema from file
+[ ] Create function to read schema from graphical interface (current session)
+[ ] Create function to store the current session's timings and associated audio queues
+[ ] Create stopwatch function to base audio queue timings from
+[ ] Create graphical interface
