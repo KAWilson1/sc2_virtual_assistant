@@ -1,0 +1,32 @@
+#Goal
+Create a desktop application that allows users to request audio queues to play at user-defined times to the start of a StarCraft2 game.
+
+#Purpose
+Assist users in executing build orders in StarCraft2 by letting them define audio queues to play at user-specified timings.
+
+#System Requirements
+System must
+    play audio clips at specified timings relative to hitting a "Start" button
+    allow users to define these timings
+    store user-defined timings and their associated audio clip for later use
+    read timings defined in the current session and previous sessions
+    begin a stopwatch timer when the user hits "Start"
+    have a graphical interface
+
+#Graphical Interface Requirements 
+Graphical Interface must include    
+    A Start button
+    A stopwatch display, beginning when the start button is hit
+    A display of last command given
+    Save button
+    Open button
+
+# Project Plan
+Record audio clips
+Define schema for associating a timing with an audio queue
+Create function to play audio queues from schema
+Create function to read schema from file
+Create function to read schema from graphical interface (current session)
+Create function to store the current session's timings and associated audio queues
+Create stopwatch function to base audio queue timings from
+Create graphical interface
