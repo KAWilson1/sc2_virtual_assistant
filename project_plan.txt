@@ -17,18 +17,25 @@ System must
 Graphical Interface must include    
     A Start button
     A stopwatch display, beginning when the start button is hit
-    A display of last command given
     Save button
     Open button
     Text field for entering in timings with associated audio queues
 
 # Project Plan
 [ ] Record audio clips
+    [ ] terran
+    [ ] zerg
+    [ ] protoss
 [x] Define schema for associating a timing with an audio queue
 [x] Create function to play audio queues from schema
 [x] Create function to read schema from file
-[ ] Create graphical interface
+[x] Create graphical interface
 [ ] Create stopwatch function to base audio queue timings from
+[x] Create function to populate text area from a text file
 [ ] Create function to read schema from graphical interface (current session)
 [ ] Create function to store the current session's timings and associated audio queues
+
+Enhancements
+[ ] Sanitize inputs 
+[ ] A display of last command given
 
