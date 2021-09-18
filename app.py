@@ -1,4 +1,6 @@
 import tkinter as tk
+from tkinter import filedialog
+import black_box
 
 LARGE_FONT = ("Verdana", 12)
 
@@ -22,6 +24,17 @@ class MainWindow(tk.Tk):
 
 class StartPage(tk.Frame):
 
+    def open_build(self):
+        path = filedialog.askopenfilename()
+        build_steps = black_box.parse_file_input(path)
+
+        #Format build steps and populate text area
+        for build in build_steps:
+            build_str = ""
+            build_str += build[0] + " " #Add build timing
+            build_str += " ".join(build[1]) + "\n" #Add any number of audio queues
+            self.textbox.insert(tk.END, build_str)
+
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
@@ -34,7 +47,7 @@ class StartPage(tk.Frame):
         lbl_timer = tk.Label(self, text="0:00", font=LARGE_FONT)
         lbl_timer.pack(pady=10, padx=10)
 
-        btn_open = tk.Button(self, text="Open")
+        btn_open = tk.Button(self, text="Open", command=lambda: self.open_build())
         btn_open.pack(side="left")
 
         btn_save = tk.Button(self, text="Save")
@@ -44,8 +57,8 @@ class StartPage(tk.Frame):
         btn_start.pack(side="right")
 
 
-        textbox = tk.Text(bottomFrame)
-        textbox.pack(side="bottom")
+        self.textbox = tk.Text(bottomFrame)
+        self.textbox.pack(side="bottom")
 
 
 
