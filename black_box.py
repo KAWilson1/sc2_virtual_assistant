@@ -54,8 +54,4 @@ def play_audio_queues(pairings):
         
         #Update last_queue_played
         last_queue_played = current_timing + time_offset #adjust for time of audio queue
-
-
-file_data = parse_file_input("sample_data/build1.txt")
-print(file_data)
-play_audio_queues(file_data)
+    
