@@ -28,17 +28,20 @@ class StartPage(tk.Frame):
         bottomFrame = tk.Frame(self)
         bottomFrame.pack(side="bottom")
         
-        label = tk.Label(self, text="Text Display", font=LARGE_FONT)
-        label.pack(pady=10, padx=10)
+        lbl_title = tk.Label(self, text="SC2 Virtual Assistant", font=LARGE_FONT)
+        lbl_title.pack(pady=10, padx=10)
 
-        button0 = tk.Button(self, text="button0")
-        button0.pack(side="left")
+        lbl_timer = tk.Label(self, text="0:00", font=LARGE_FONT)
+        lbl_timer.pack(pady=10, padx=10)
 
-        button1 = tk.Button(self, text="button1")
-        button1.pack(side="left")
+        btn_open = tk.Button(self, text="Open")
+        btn_open.pack(side="left")
 
-        button2 = tk.Button(self, text="button2")
-        button2.pack(side="left")
+        btn_save = tk.Button(self, text="Save")
+        btn_save.pack(side="left")
+
+        btn_start = tk.Button(self, text="Start")
+        btn_start.pack(side="right")
 
 
         textbox = tk.Text(bottomFrame)
