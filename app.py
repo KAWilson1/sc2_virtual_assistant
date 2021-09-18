@@ -1,4 +1,5 @@
 import tkinter as tk
+import black_box
 
 LARGE_FONT = ("Verdana", 12)
 
@@ -22,6 +23,14 @@ class MainWindow(tk.Tk):
 
 class StartPage(tk.Frame):
 
+    def open_build(self):
+        path = tk.filedialog.askopenfilename()
+        build = black_box.parse_file_input(path)
+
+        #Populate text area
+        test = "aoeu\nueoauoe\nueoau"
+        textbox.insert(tk.END, test)
+
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
@@ -34,7 +43,7 @@ class StartPage(tk.Frame):
         lbl_timer = tk.Label(self, text="0:00", font=LARGE_FONT)
         lbl_timer.pack(pady=10, padx=10)
 
-        btn_open = tk.Button(self, text="Open")
+        btn_open = tk.Button(self, text="Open", command=lambda: self.open_build(entry0))
         btn_open.pack(side="left")
 
         btn_save = tk.Button(self, text="Save")
