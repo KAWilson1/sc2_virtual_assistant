@@ -1,38 +1,15 @@
 #Purpose: Play audio queues at specified times
 import playsound
 import time
-import tkinter as tk
 
-def parse_file_input(file_path):
+def parse_input(lines):
     """
-    Parses files that follow defined schema into tuple of (Timing, Audio Queue(s))
+    Parses lines from text files or from the tkinter.Text widget
     """
-    #Open file
-    with open(file_path) as f:
-        lines = f.readlines()
-    
-    #Format file contents
     formatted_lines = []
     for line in lines:
+        line = line.rstrip() #remove \n if present
         broken_lines = line.split() #split at spaces
-        formatted_line = (broken_lines[0], broken_lines[1:])
-        formatted_lines.append(formatted_line)
-    
-    return formatted_lines
-
-def parse_textarea_input(textarea):
-    #Get text
-    raw_text = textarea.get("1.0", tk.END)
-    print(type(raw_text))
-    print(raw_text.splitlines())
-
-    #Format file contents
-    formatted_lines = []
-    for line in raw_text.splitlines(): #for every line in the raw text
-        print(line)
-        line = line.rstrip()
-        broken_lines = line.split() #split at spaces
-
         #A valid build step must have a time and an action, meaning the length
         #must be at least 2
         if len(broken_lines) >= 2:
@@ -40,6 +17,7 @@ def parse_textarea_input(textarea):
             formatted_lines.append(formatted_line)
     
     return formatted_lines
+
 
 def play_audio_queues(pairings):
     """

@@ -25,8 +25,14 @@ class MainWindow(tk.Tk):
 class StartPage(tk.Frame):
 
     def open_build(self):
+        """
+        Populates the textarea from a text file which is selected via a File Dialog Menu
+        """
         path = filedialog.askopenfilename()
-        build_steps = black_box.parse_file_input(path)
+        #Open file
+        with open(path) as f:
+            lines = f.readlines()
+        build_steps = black_box.parse_input(lines)
 
         #Format build steps and populate text area
         for build in build_steps:
@@ -37,7 +43,8 @@ class StartPage(tk.Frame):
 
     def start(self):
         #Get build from text area
-        build_steps = black_box.parse_textarea_input(self.textbox)
+        raw_text = self.textbox.get("1.0", tk.END)
+        build_steps = black_box.parse_input(raw_text.splitlines())
         black_box.play_audio_queues(build_steps)
 
     def __init__(self, parent, controller):
