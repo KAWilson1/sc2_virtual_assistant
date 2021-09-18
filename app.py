@@ -35,6 +35,11 @@ class StartPage(tk.Frame):
             build_str += " ".join(build[1]) + "\n" #Add any number of audio queues
             self.textbox.insert(tk.END, build_str)
 
+    def start(self):
+        #Get build from text area
+        build_steps = black_box.parse_textarea_input(self.textbox)
+        black_box.play_audio_queues(build_steps)
+
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
@@ -53,7 +58,7 @@ class StartPage(tk.Frame):
         btn_save = tk.Button(self, text="Save")
         btn_save.pack(side="left")
 
-        btn_start = tk.Button(self, text="Start")
+        btn_start = tk.Button(self, text="Start", command=lambda: self.start())
         btn_start.pack(side="right")
 
 
