@@ -45,6 +45,12 @@ class StartPage(tk.Frame):
             self.textbox.insert(tk.END, build_str)
 
     def start(self):
+        """
+        Starts the stopwatch on the GUI and plays audio queues at specified times
+        For n audio queues that play, the next 2n function calls to start() will occur
+            650ms faster than if no audio queue(s) played. This allows the timer to 
+            maintain relatively accurate timing while playing queues.
+        """
         #Get time from GUI
         counter = self.lbl_timer["text"]
         split_time = counter.split(":")
@@ -60,11 +66,19 @@ class StartPage(tk.Frame):
         self.lbl_timer["text"] = counter_to_display
 
         #Check if current time has associated audio queue
-        for step in build_steps:
-            if counter_sec == step[0]:
-                for audio_queue in step[1]:
+        global num_audio_queues #queues to be played this function call
+        for i in range(0, len(build_steps)):
+            if counter_sec == build_steps[i][0]:
+                for audio_queue in build_steps[i][1]:
                     playsound.playsound("audio_queues/" + audio_queue + ".mp3")
-        self.after(1000, self.start)
+                    num_audio_queues += 2 #add 2 instances of "recovery time" per audio queue
+        
+        #For n audio queues that play, the next 2n function calls will occur sooner
+        if num_audio_queues > 0:
+            num_audio_queues -= 1
+            self.after(350, self.start)
+        else:
+            self.after(1000, self.start)
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -91,6 +105,8 @@ class StartPage(tk.Frame):
         self.textbox.pack(side="bottom")
 
 if __name__ == "__main__":
+    global num_audio_queues #used to adjust timer based on number of played audio queues
+    num_audio_queues = 0
     app = MainWindow()
     app.mainloop()
     
