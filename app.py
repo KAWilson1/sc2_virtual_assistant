@@ -72,37 +72,55 @@ class StartPage(tk.Frame):
             650ms faster than if no audio queue(s) played. This allows the timer to 
             maintain relatively accurate timing while playing queues.
         """
-        #Get time from GUI
-        counter = self.lbl_timer["text"]
-        split_time = counter.split(":")
-        counter_sec = int(split_time[0]) * 60 + int(split_time[1])
-        
+        def start_timer():
+            """
+            Handles updating timer and playing audio queues at user-defined times
+            """
+            #Get time from GUI
+            counter = self.lbl_timer["text"]
+            split_time = counter.split(":")
+            counter_sec = int(split_time[0]) * 60 + int(split_time[1])
+
+            #Write new time to GUI
+            new_time = counter_sec + 1 # increment next time to render
+            if new_time % 60 < 10: #add proceeding 0 if seconds < 10
+                counter_to_display = str(new_time // 60) + ":0" + str(new_time % 60) #m:ss time format
+            else:
+                counter_to_display = str(new_time // 60) + ":" + str(new_time % 60) #m:ss time format
+            self.lbl_timer["text"] = counter_to_display
+
+            #Check if current time has associated audio queue
+            global num_audio_queues #queues to be played this function call
+            for i in range(0, len(build_steps)):
+                if counter_sec == build_steps[i][0]:
+                    for audio_queue in build_steps[i][1]:
+                        playsound.playsound("audio_queues/" + audio_queue + ".mp3")
+                        num_audio_queues += 2 #add 2 instances of "recovery time" per audio queue
+            
+            if running:
+                #For n audio queues that play, the next 2n function calls will occur sooner
+                if num_audio_queues > 0:
+                    num_audio_queues -= 1
+                    self.after(350, start_timer)
+                else:
+                    self.after(1000, start_timer)
+            else:
+                self.lbl_timer["text"] = "0:00"
+
         #Get build from text area
         raw_text = self.textbox.get("1.0", tk.END)
         build_steps = black_box.parse_input(raw_text.splitlines())
 
-        #Write new time to GUI
-        new_time = counter_sec + 1 # increment next time to render
-        if new_time % 60 < 10: #add proceeding 0 if seconds < 10
-            counter_to_display = str(new_time // 60) + ":0" + str(new_time % 60) #m:ss time format
-        else:
-            counter_to_display = str(new_time // 60) + ":" + str(new_time % 60) #m:ss time format
-        self.lbl_timer["text"] = counter_to_display
+        global running
+        running = True
 
-        #Check if current time has associated audio queue
-        global num_audio_queues #queues to be played this function call
-        for i in range(0, len(build_steps)):
-            if counter_sec == build_steps[i][0]:
-                for audio_queue in build_steps[i][1]:
-                    playsound.playsound("audio_queues/" + audio_queue + ".mp3")
-                    num_audio_queues += 2 #add 2 instances of "recovery time" per audio queue
-        
-        #For n audio queues that play, the next 2n function calls will occur sooner
-        if num_audio_queues > 0:
-            num_audio_queues -= 1
-            self.after(350, self.start)
-        else:
-            self.after(1000, self.start)
+        start_timer()
+    
+    def reset(self):
+        global running
+        running = False
+        global num_audio_queues
+        num_audio_queues = 0
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -125,12 +143,17 @@ class StartPage(tk.Frame):
         btn_start = tk.Button(self, text="Start", command=lambda: self.start())
         btn_start.pack(side="right")
 
+        btn_reset = tk.Button(self, text="Reset", command=lambda: self.reset())
+        btn_reset.pack(side="right")
+
         self.textbox = tk.Text(bottomFrame)
         self.textbox.pack(side="bottom")
 
 if __name__ == "__main__":
     global num_audio_queues #used to adjust timer based on number of played audio queues
     num_audio_queues = 0
+    global running #if stopwatch is counting up
+    running = False
     app = MainWindow()
     app.mainloop()
     
