@@ -39,7 +39,10 @@ class StartPage(tk.Frame):
         for build in build_steps:
             build_str = ""
             #m:ss time format of build timing
-            build_str += str(build[0] // 60) + ":" + str(build[0] % 60) + " "
+            if build[0] % 60 < 10: #add proceeding 0 if seconds < 10
+                build_str += str(build[0] // 60) + ":0" + str(build[0] % 60) + " "
+            else:
+                build_str += str(build[0] // 60) + ":" + str(build[0] % 60) + " "
             #Add any number of audio queues
             build_str += " ".join(build[1]) + "\n" 
             self.textbox.insert(tk.END, build_str)
@@ -62,7 +65,10 @@ class StartPage(tk.Frame):
 
         #Write new time to GUI
         new_time = counter_sec + 1 # increment next time to render
-        counter_to_display = str(new_time // 60) + ":" + str(new_time % 60) #m:ss time format
+        if new_time % 60 < 10: #add proceeding 0 if seconds < 10
+            counter_to_display = str(new_time // 60) + ":0" + str(new_time % 60) #m:ss time format
+        else:
+            counter_to_display = str(new_time // 60) + ":" + str(new_time % 60) #m:ss time format
         self.lbl_timer["text"] = counter_to_display
 
         #Check if current time has associated audio queue
