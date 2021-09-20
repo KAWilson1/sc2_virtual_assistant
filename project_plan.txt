@@ -30,7 +30,7 @@ Graphical Interface must include
 [x] Create function to play audio queues from schema
 [x] Create function to read schema from file
 [x] Create graphical interface
-[ ] Create stopwatch function to base audio queue timings from
+[x] Create stopwatch function to base audio queue timings from
 [x] Create function to populate text area from a text file
 [x] Create function to read schema from graphical interface (current session)
 [ ] Create function to store the current session's timings and associated audio queues
