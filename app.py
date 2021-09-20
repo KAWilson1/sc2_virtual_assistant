@@ -47,6 +47,24 @@ class StartPage(tk.Frame):
             build_str += " ".join(build[1]) + "\n" 
             self.textbox.insert(tk.END, build_str)
 
+    def save_build(self):
+        """
+        Copies all text from within textarea and saves it as a .txt
+        """
+        #Get build from text area
+        raw_text = self.textbox.get("1.0", tk.END)
+
+        #Delete trailing empty lines from str
+        while raw_text.endswith("\n"):
+            #Remove the last two characters from str
+            raw_text = raw_text[:-2]
+
+        #File dialog for saving file; Only accept .txt files
+        file = filedialog.asksaveasfile(filetypes=[('Text Document', '*.txt')], defaultextension=[('Text Document', '*.txt')])
+        if file != None: #if file made successfully
+            file.write(raw_text)
+            file.close()
+        
     def start(self):
         """
         Starts the stopwatch on the GUI and plays audio queues at specified times
@@ -101,7 +119,7 @@ class StartPage(tk.Frame):
         btn_open = tk.Button(self, text="Open", command=lambda: self.open_build())
         btn_open.pack(side="left")
 
-        btn_save = tk.Button(self, text="Save")
+        btn_save = tk.Button(self, text="Save", command=lambda: self.save_build())
         btn_save.pack(side="left")
 
         btn_start = tk.Button(self, text="Start", command=lambda: self.start())
