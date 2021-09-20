@@ -38,3 +38,4 @@ Graphical Interface must include
 Enhancements
 [ ] Sanitize inputs 
 [ ] A display of last command given
+[ ] Parse SALT-encoded text (text format standard)
