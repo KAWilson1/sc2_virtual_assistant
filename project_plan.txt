@@ -34,6 +34,7 @@ Graphical Interface must include
 [x] Create function to populate text area from a text file
 [x] Create function to read schema from graphical interface (current session)
 [x] Create function to store the current session's timings and associated audio queues
+[ ] Add reset button or functionality
 
 Enhancements
 [ ] Sanitize inputs 
