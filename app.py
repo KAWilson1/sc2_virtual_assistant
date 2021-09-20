@@ -47,7 +47,7 @@ class StartPage(tk.Frame):
     def start(self):
         """
         Starts the stopwatch on the GUI and plays audio queues at specified times
-        For n audio queues that play, the next n function calls to start() will occur
+        For n audio queues that play, the next 2n function calls to start() will occur
             650ms faster than if no audio queue(s) played. This allows the timer to 
             maintain relatively accurate timing while playing queues.
         """
@@ -71,9 +71,9 @@ class StartPage(tk.Frame):
             if counter_sec == build_steps[i][0]:
                 for audio_queue in build_steps[i][1]:
                     playsound.playsound("audio_queues/" + audio_queue + ".mp3")
-                    num_audio_queues += 2 #add 2 seconds of "recovered time" per audio queue
+                    num_audio_queues += 2 #add 2 instances of "recovery time" per audio queue
         
-        #For n audio queues that play, the next n function calls will occur sooner
+        #For n audio queues that play, the next 2n function calls will occur sooner
         if num_audio_queues > 0:
             num_audio_queues -= 1
             self.after(350, self.start)
