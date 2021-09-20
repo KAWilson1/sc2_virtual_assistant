@@ -1,10 +1,20 @@
-#Purpose: Play audio queues at specified times
-import playsound
-import time
+#Purpose: Misc helper functions for app
 
 def parse_input(lines):
     """
     Parses lines from text files or from the tkinter.Text widget
+
+    Returns:
+        build_step: tuple of length 2
+            build_step[0]: int
+                Number of seconds to delay audio queue from start time 
+            build_step[1]: list
+                Contains a list of all audio queues to play
+            build_step[1][0]: string
+                string of the audio queue file with no extension and in snake_case
+            Examples:
+                (150, ["barracks"])
+                (165, ["factory", "command_center"])
     """
     formatted_lines = []
     for line in lines:
@@ -13,43 +23,10 @@ def parse_input(lines):
         #A valid build step must have a time and an action, meaning the length
         #must be at least 2
         if len(broken_lines) >= 2:
-            formatted_line = (broken_lines[0], broken_lines[1:])
+            #Convert from "m:ss" to integer seconds
+            time_in_sec = int(broken_lines[0].split(":")[0])*60 + int(broken_lines[0].split(":")[1])
+
+            formatted_line = (time_in_sec, broken_lines[1:])
             formatted_lines.append(formatted_line)
     
     return formatted_lines
-
-
-def play_audio_queues(pairings):
-    """
-    Params:
-        pairings: tuple of length 2
-            pairings[0]: str
-                min:sec 
-                Timing for associated audio queue(s) to play
-            pairings[1]: list
-                Contains a list of all audio queues to play
-            pairings[1][0]: string
-                string of the audio queue file with no extension and in snake_case
-            Examples:
-                ("2:30", ["barracks"])
-                ("2:45", ["factory", "command_center"])
-    """
-    last_queue_played = 0 #time of last audio queue in seconds
-    for pair in pairings:
-        #Calculate when to play next sound queue
-        broken_time = pair[0].split(":")
-        current_timing = int(broken_time[0]) * 60 + int(broken_time[1]) #in seconds
-        difference_from_last_time = current_timing - last_queue_played
-        
-        #Sleep until time to play sound queue
-        time.sleep(difference_from_last_time)
-
-        #Play sound queue(s)
-        time_offset = 0 #Increases by 2 seconds per audio queue played
-        for audio_queue in pair[1]:
-            playsound.playsound("audio_queues/" + audio_queue + ".mp3")
-            time_offset += 2
-        
-        #Update last_queue_played
-        last_queue_played = current_timing + time_offset #adjust for time of audio queue
-    
