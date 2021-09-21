@@ -29,11 +29,16 @@ class StartPage(tk.Frame):
         """
         Populates the textarea from a text file which is selected via a File Dialog Menu
         """
+        #Opens GUI for file selection
         path = filedialog.askopenfilename()
+        
         #Open file
         with open(path) as f:
             lines = f.readlines()
         build_steps = black_box.parse_input(lines)
+
+        #Clear textarea
+        self.textbox.delete('1.0', tk.END)
 
         #Format build steps and populate text area
         for build in build_steps:
