@@ -22,10 +22,10 @@ Graphical Interface must include
     Text field for entering in timings with associated audio queues
 
 # Project Plan
-[ ] Record audio clips
-    [ ] terran
-    [ ] zerg
-    [ ] protoss
+[x] Record audio clips
+    [x] terran
+    [x] zerg
+    [x] protoss
 [x] Define schema for associating a timing with an audio queue
 [x] Create function to play audio queues from schema
 [x] Create function to read schema from file
